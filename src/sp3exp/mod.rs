@@ -15,3 +15,13 @@ fn run_server(addr: &str) {
         println!("LE: {}", num_le);
     }
 }
+
+fn run_client(server_addr: &str, local_addr: &str) {
+    let socket = UdpSocket::bind(local_addr).unwrap();
+
+    let num = 346654u32;
+    println!("tx: {}", num);
+
+    let num_be = num.to_be_bytes();
+    socket.send_to(&num_be, server_addr).unwrap();
+}
